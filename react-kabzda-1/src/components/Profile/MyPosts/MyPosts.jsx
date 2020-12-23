@@ -4,7 +4,6 @@ import Post from "./Posts/Post";
 
 const MyPosts = (props) => {
 
-  debugger;
   // let posts = [
   //   { id: 1, message: "Hi, how are you?", likesCount: 12 },
   //   { id: 2, message: "It`s my first post!", likesCount: 11 },
@@ -16,16 +15,24 @@ const MyPosts = (props) => {
     <Post message={p.message} like={p.likesCount} />
   ));
 
+  let newPostElement = React.createRef();
+
+  let addPost = () => {
+    let text = newPostElement.current.value;
+    props.addPost(text);
+    newPostElement.current.value = '';
+  }
+
   return (
     <div className={s.postsBlock}>
       <div>
         <h3>My posts</h3>
         <div>
           <div>
-            <textarea></textarea>
+            <textarea ref={newPostElement}></textarea>
           </div>
           <div>
-            <button>Add post</button>
+            <button onClick={addPost}>Add post</button>
           </div>
         </div>
         <div className={s.posts}>{postElements}</div>
